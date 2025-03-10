@@ -1,19 +1,18 @@
 package ru.ssugt.drones.jpa.entities;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import ru.ssugt.drones.jpa.entities.common.BaseEntity;
+
+import java.util.List;
 
 @Entity
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class DockStation extends BaseEntity {
 
     private String name;
@@ -24,4 +23,11 @@ public class DockStation extends BaseEntity {
             referencedColumnName = "id"
     )
     private Location location;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn (
+            name = "dockstation_id",
+            referencedColumnName = "id"
+    )
+    private List<Drone> drones;
 }

@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import ru.ssugt.drones.dto.request.DockStationRegisterRequest;
-import ru.ssugt.drones.dto.response.DockStationResponse;
+import ru.ssugt.drones.api.controllers.DockStationController;
+import ru.ssugt.drones.api.dto.request.DockStationRegisterRequest;
+import ru.ssugt.drones.api.dto.response.DockStationResponse;
 import ru.ssugt.drones.jpa.entities.Location;
 import ru.ssugt.drones.jpa.repository.DockStationRepository;
 

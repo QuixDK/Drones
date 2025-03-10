@@ -1,4 +1,4 @@
-package ru.ssugt.drones.dto.response;
+package ru.ssugt.drones.api.dto.response;
 
 import lombok.*;
 

@@ -1,4 +1,4 @@
-package ru.ssugt.drones.api;
+package ru.ssugt.drones.api.controllers;
 
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
