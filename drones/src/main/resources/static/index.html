@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map with Points</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+<h1>Click on the map to add points</h1>
+<div id="map"></div>
+<button id="submitButton" style="display: none;">Submit Points</button>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    let map = L.map('map').setView([55.7558, 37.6173], 13);  // Москва, например
+
+    // Добавляем слой карты (например, OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    let points = [];  // Массив для хранения точек
+    let polygon = null;  // Переменная для полигона
+
+    // Обработчик клика по карте
+    map.on('click', function(event) {
+        if (points.length < 4) {
+            const lat = event.latlng.lat;
+            const lng = event.latlng.lng;
+            const marker = L.marker([lat, lng]).addTo(map);
+            points.push([lat, lng]); // Добавляем точку в массив
+
+            // Если уже есть 3 точки, рисуем полигон
+            if (points.length >= 3) {
+                // Если полигон уже есть, удаляем его
+                if (polygon) {
+                    map.removeLayer(polygon);
+                }
+
+                // Создаем новый полигон
+                polygon = L.polygon(points, {
+                    color: 'gray',
+                    fillColor: 'gray',
+                    fillOpacity: 0.5
+                }).addTo(map);
+            }
+
+            // Когда 4 точки, показываем кнопку отправки
+            if (points.length === 4) {
+                document.getElementById('submitButton').style.display = 'block';
+            }
+        }
+    });
+
+    // Обработчик отправки данных на сервер
+    document.getElementById('submitButton').addEventListener('click', function() {
+        // Отправляем массив точек на сервер
+        fetch('http://localhost:8888/api/v1/locations/savePoints', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(points)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Response from server:', data);
+            alert('Points sent successfully!');
+            points = [];  // Очищаем массив точек
+            if (polygon) {
+                map.removeLayer(polygon);  // Удаляем полигон
+            }
+            map.eachLayer(function(layer) {
+                if (layer instanceof L.Marker) {
+                    map.removeLayer(layer);  // Удаляем все маркеры
+                }
+            });
+            document.getElementById('submitButton').style.display = 'none';  // Скрываем кнопку
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error sending points.');
+        });
+    });
+</script>
+</body>
+</html>
