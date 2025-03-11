@@ -1,4 +1,4 @@
-package ru.ssugt.drones.api.dto.request;
+package ru.ssugt.drones.api.dto.request.drone;
 
 import lombok.Builder;
 import lombok.Data;

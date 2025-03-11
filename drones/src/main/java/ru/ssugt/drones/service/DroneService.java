@@ -2,16 +2,17 @@ package ru.ssugt.drones.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.ssugt.drones.api.dto.request.DockStationRegisterRequest;
-import ru.ssugt.drones.api.dto.request.DroneAddToDockStationRequest;
-import ru.ssugt.drones.api.dto.request.DroneRegisterRequest;
+import ru.ssugt.drones.api.dto.request.drone.DroneAddToDockStationRequest;
+import ru.ssugt.drones.api.dto.request.drone.DroneRegisterRequest;
 import ru.ssugt.drones.jpa.entities.DockStation;
 import ru.ssugt.drones.jpa.entities.Drone;
 import ru.ssugt.drones.jpa.repository.DockStationRepository;
 import ru.ssugt.drones.jpa.repository.DroneRepository;
 
 import java.util.ArrayList;
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Component
 public class DroneService {
@@ -41,6 +42,10 @@ public class DroneService {
             dockStation.getDrones().add(drone);
         }
         return dockStationRepository.save(dockStation);
+    }
+
+    public List<Drone> getAllDrones() {
+        return StreamSupport.stream(droneRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
 }

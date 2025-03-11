@@ -21,7 +21,7 @@ import java.util.Objects;
 @EntityListeners(ru.dynamika.data.MyEntityListener.class)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
-@JsonFilter("ignoreNullCollections")
+//@JsonFilter("ignoreNullCollections")
 public abstract class BaseEntity {
 
     @Getter

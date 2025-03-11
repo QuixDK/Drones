@@ -2,12 +2,10 @@ package ru.ssugt.drones.api.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.ssugt.drones.api.dto.request.DockStationRegisterRequest;
-import ru.ssugt.drones.api.dto.response.DockStationResponse;
+import ru.ssugt.drones.api.dto.response.dockstation.DockStationResponse;
+import ru.ssugt.drones.api.dto.response.dockstation.DockStationsResponse;
 import ru.ssugt.drones.jpa.entities.DockStation;
 import ru.ssugt.drones.service.DockStationService;
 
@@ -26,7 +24,13 @@ public class DockStationController {
     public ResponseEntity<DockStationResponse> registerDockStation(@RequestBody DockStationRegisterRequest dockStationRegisterRequest) {
         DockStation dockStation = dockStationService.register(dockStationRegisterRequest);
         return ResponseEntity.ok(DockStationResponse.builder()
-                        .id(dockStation.getId())
+                .id(dockStation.getId())
                 .build());
+    }
+
+
+    @GetMapping("/get-all")
+    public ResponseEntity<DockStationsResponse> getAllDockStations() {
+        return ResponseEntity.ok(DockStationsResponse.builder().dockStations(dockStationService.getAll()).build());
     }
 }

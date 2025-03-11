@@ -6,6 +6,10 @@ import ru.ssugt.drones.api.dto.request.DockStationRegisterRequest;
 import ru.ssugt.drones.jpa.entities.DockStation;
 import ru.ssugt.drones.jpa.repository.DockStationRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 @Component
 public class DockStationService {
 
@@ -21,5 +25,9 @@ public class DockStationService {
                         .name(request.getName())
                         .location(request.getLocation())
                 .build());
+    }
+
+    public List<DockStation> getAll() {
+        return StreamSupport.stream(dockStationRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 }
