@@ -31,7 +31,7 @@ services:
   # Сервис для java приложения
   drones-app:
     build:
-      context: .
+      context: ./drones
       dockerfile: Dockerfile
     container_name: drones-app
     ports:
@@ -47,5 +47,19 @@ services:
     depends_on:
       - postgres
       - rabbitmq
+
+  # Сервис для фронтенда
+  frontend:
+    build:
+      context: ./drones-frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://drones-app:8888  # Указываем URL бэкенда
+    depends_on:
+      - drones-app
+
 volumes:
   postgres_data:
