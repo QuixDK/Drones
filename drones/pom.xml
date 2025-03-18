@@ -54,7 +54,11 @@
 			<artifactId>spring-aspects</artifactId>
 			<version>6.1.0</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.rabbitmq</groupId>
+			<artifactId>amqp-client</artifactId>
+			<version>5.16.0</version>
+		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-c3p0</artifactId>

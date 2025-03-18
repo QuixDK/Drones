@@ -1,7 +1,6 @@
 package ru.ssugt.drones.jpa.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import ru.ssugt.drones.jpa.entities.common.BaseEntity;
@@ -22,4 +21,11 @@ public class Drone extends BaseEntity {
             updatable = false
     )
     private String dockStationId;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(
+            name = "location_id",
+            referencedColumnName = "id"
+    )
+    private Location location;
 }

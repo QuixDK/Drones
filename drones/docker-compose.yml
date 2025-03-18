@@ -1,0 +1,51 @@
+services:
+  # Сервис для PostgreSQL
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    environment:
+      POSTGRES_DB: drones
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: inspector
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # Сервис для RabbitMQ
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"  # Порт для AMQP
+      - "15672:15672"  # Порт для управления RabbitMQ (Web UI)
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: 1
+    healthcheck:
+      test: [ "CMD", "rabbitmq-diagnostics", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # Сервис для java приложения
+  drones-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: drones-app
+    ports:
+      - "8888:8888"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/drones
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: inspector
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: user
+      SPRING_RABBITMQ_PASSWORD: 1
+    depends_on:
+      - postgres
+      - rabbitmq
+volumes:
+  postgres_data:

@@ -12,17 +12,23 @@ logging.level.org.springframework.jdbc.core.StatementCreatorUtils=TRACE
 
 server.port=8888
 
-spring.datasource.url=jdbc:postgresql://localhost:5432/drones
+spring.datasource.url=${SPRING_DATASOURCE_URL}
 spring.datasource.driverClassName=org.postgresql.Driver
-spring.datasource.username=
-spring.datasource.password=
+spring.datasource.username=${SPRING_DATASOURCE_USERNAME}
+spring.datasource.password=${SPRING_DATASOURCE_PASSWORD}
+
+spring.rabbitmq.host=${SPRING_RABBITMQ_HOST}
+spring.rabbitmq.port=${SPRING_RABBITMQ_PORT}
+spring.rabbitmq.username=${SPRING_RABBITMQ_USERNAME}
+spring.rabbitmq.password=${SPRING_RABBITMQ_PASSWORD}
 
 management.endpoint.health.group.custom.show-components=always
 management.endpoint.health.group.custom.show-details=always
 management.endpoints.web.exposure.include=*
 
-spring.security.user.name=user
-spring.security.user.password=1
-
 hibernate.hbm2ddl.auto=update
 spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+rabbit.fanout.exchange.name=dock_station_fanout
+rabbit.direct.exchange.name=dock_station_direct
+rabbit.request.dockstation.timeout=10000

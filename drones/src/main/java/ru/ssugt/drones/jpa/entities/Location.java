@@ -2,7 +2,9 @@ package ru.ssugt.drones.jpa.entities;
 
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import ru.ssugt.drones.jpa.entities.common.BaseEntity;
 
@@ -10,9 +12,10 @@ import ru.ssugt.drones.jpa.entities.common.BaseEntity;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter @Setter
 public class Location extends BaseEntity {
 
-    private long x;
-    private long y;
+    private double x;
+    private double y;
 
 }
