@@ -36,6 +36,7 @@ services:
     container_name: drones-app
     ports:
       - "8888:8888"
+      - "5005:5005"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/drones
       SPRING_DATASOURCE_USERNAME: postgres
