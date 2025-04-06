@@ -14,6 +14,7 @@ import ru.ssugt.drones.service.DroneService;
 
 import java.util.List;
 
+@Deprecated
 @RestController
 @RequestMapping("api/v1/drone")
 public class DroneController {

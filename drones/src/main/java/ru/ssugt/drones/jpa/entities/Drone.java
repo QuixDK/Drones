@@ -28,4 +28,6 @@ public class Drone extends BaseEntity {
             referencedColumnName = "id"
     )
     private Location location;
+    @Column(name = "external_id", unique = true)
+    private String externalId;
 }

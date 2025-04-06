@@ -30,4 +30,6 @@ public class DockStation extends BaseEntity {
             referencedColumnName = "id"
     )
     private List<Drone> drones;
+    @Column(name = "external_id", unique = true)
+    private String externalId;
 }

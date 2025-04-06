@@ -1,5 +1,6 @@
 package ru.ssugt.drones.jpa.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import ru.ssugt.drones.jpa.entities.common.BaseEntity;
 @Getter @Setter
 public class Location extends BaseEntity {
 
-    private double x;
-    private double y;
+    private double latitude;
+    private double longitude;
 
 }

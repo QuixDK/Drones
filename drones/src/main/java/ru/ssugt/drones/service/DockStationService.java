@@ -20,6 +20,7 @@ public class DockStationService {
         this.dockStationRepository = dockStationRepository;
     }
 
+    @Deprecated
     public DockStation register(DockStationRegisterRequest request) {
         return dockStationRepository.save(DockStation.builder()
                         .name(request.getName())

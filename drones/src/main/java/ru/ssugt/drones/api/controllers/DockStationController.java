@@ -20,6 +20,7 @@ public class DockStationController {
         this.dockStationService = dockStationService;
     }
 
+    @Deprecated
     @PostMapping("/register")
     public ResponseEntity<DockStationResponse> registerDockStation(@RequestBody DockStationRegisterRequest dockStationRegisterRequest) {
         DockStation dockStation = dockStationService.register(dockStationRegisterRequest);
