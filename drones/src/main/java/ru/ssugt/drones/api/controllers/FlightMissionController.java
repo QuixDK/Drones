@@ -3,6 +3,7 @@ package ru.ssugt.drones.api.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.ssugt.drones.api.dto.FlightMission;
+import ru.ssugt.drones.api.dto.request.FlightMissionDto;
 import ru.ssugt.drones.service.FlightMissionService;
 
 import java.io.IOException;
@@ -22,8 +23,8 @@ public class FlightMissionController {
 
 
     @PostMapping("/load")
-    public String loadFlightMission(@RequestBody List<List<Double>> points) throws IOException {
-        FlightMission flightMission = flightMissionService.generateFlightMission(points);
+    public String loadFlightMission(@RequestBody FlightMissionDto flightMissionDto) throws IOException {
+        FlightMission flightMission = flightMissionService.generateFlightMission(flightMissionDto.getPoints());
         flightMissionService.requestDockStationStatus(flightMission);
         return "Points received successfully!";
     }
