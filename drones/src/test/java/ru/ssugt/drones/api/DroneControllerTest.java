@@ -72,8 +72,8 @@ public class DroneControllerTest {
             DockStationRegisterRequest dockStationRegisterRequest = DockStationRegisterRequest.builder()
                     .name("test")
                     .location(Location.builder()
-                            .x(1l)
-                            .y(1l)
+                            .latitude(1l)
+                            .longitude(1l)
                             .build())
                     .build();
             DockStation dockStation = dockStationService.register(dockStationRegisterRequest);
