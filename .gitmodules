@@ -1,0 +1,3 @@
+[submodule "drones-frontend"]
+    path = drones-frontend
+    url = https://github.com/QuixDK/Drones-frontend
